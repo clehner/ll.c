@@ -1,14 +1,14 @@
-/* sll_debug.c - debug version of sll
+/* ll_debug.c - debug version of ll
  *
  * Copyright (C) 2014 Charles Lehner
- * This file is part of sll.
+ * This file is part of ll.
  *
- * sll is free software: you can redistribute it and/or modify it under
+ * ll is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
  *
- * sll is distributed in the hope that it will be useful,
+ * ll is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
@@ -23,4 +23,4 @@
 #define free my_free
 #define malloc my_malloc
 
-#include "sll.c"
+#include "ll.c"

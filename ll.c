@@ -1,4 +1,4 @@
-/* mock_malloc.c - debug wrapper for malloc
+/* ll.c - simple linked list
  *
  * Copyright (C) 2014 Charles Lehner
  * This file is part of ll.
@@ -17,19 +17,50 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mock_malloc.h"
+#include <stdlib.h>
+#include "ll.h"
 
-#include <malloc.h>
+struct ll {
+    struct ll *next;
+    void *value[];
+};
 
-void my_free(void *ptr)
+void *
+_ll_push(void *next, size_t size)
 {
-    free_calls++;
-    free(ptr);
+    struct ll *ll = malloc(sizeof(struct ll) + size);
+    if (!ll)
+        return NULL;
+    ll->next = next;
+    return &ll->value;
 }
 
-void *my_malloc(size_t size)
+void *
+ll_peek(void *ll)
 {
-    malloc_calls++;
-    return malloc(size);
+    return ll ? ((struct ll *)ll)[-1].next : NULL;
 }
 
+void *
+ll_pop(void *_ll)
+{
+    struct ll *ll, *next;
+    if (!_ll)
+        return NULL;
+    ll = _ll;
+    ll--;
+    next = ll->next;
+    free(ll);
+    return next;
+}
+
+void
+ll_free(void *_ll)
+{
+    struct ll *ll, *next;
+    for (ll = _ll; ll; ll = next) {
+        ll--;
+        next = ll->next;
+        free(ll);
+    }
+}

@@ -1,14 +1,14 @@
-/* sll.h - simple linked list
+/* ll.h - simple linked list
  *
  * Copyright (C) 2014 Charles Lehner
- * This file is part of sll.
+ * This file is part of ll.
  *
- * sll is free software: you can redistribute it and/or modify it under
+ * ll is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
  *
- * sll is distributed in the hope that it will be useful,
+ * ll is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
@@ -17,17 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __SLL_H
-#define __SLL_H
+#ifndef __LL_H
+#define __LL_H
 
 #include <stddef.h>
 
-#define sll_push(sll) \
-    _sll_push(sll, sizeof(*sll))
+#define ll_push(ll) \
+    _ll_push(ll, sizeof(*ll))
 
-void *_sll_push(void *sll, size_t size);
-void *sll_pop(void *sll);
-void *sll_peek(void *sll);
-void sll_free(void *sll);
+void *_ll_push(void *ll, size_t size);
+void *ll_pop(void *ll);
+void *ll_peek(void *ll);
+void ll_free(void *ll);
 
-#endif /* __SLL_H */
+#endif /* __LL_H */

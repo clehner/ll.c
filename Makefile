@@ -1,4 +1,4 @@
-# Makefile for sll
+# Makefile for ll
 # Copyright (C) 2014 Charles Lehner
 #
 # Copying and distribution of this file, with or without modification,
@@ -8,14 +8,14 @@
 
 CFLAGS = -Wall -Wextra -Werror
 
-all: sll.o test
+all: ll.o test
 
-test: test_sll
+test: test_ll
 	./$<
 
-test_sll: sll_debug.o mock_malloc.c
+test_ll: ll_debug.o mock_malloc.c
 
-sll_debug.o: sll.c
+ll_debug.o: ll.c
 
 clean:
-	rm -f test_sll *.o
+	rm -f test_ll *.o

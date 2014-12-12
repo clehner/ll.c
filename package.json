@@ -1,9 +1,9 @@
 {
-	"name": "sll",
+	"name": "ll",
 	"version": "1.0.0",
 	"repo": "clehner/ll",
 	"description": "minimal linked list",
 	"keywords": ["list", "structure"],
 	"license": "LGPL-3.0+",
-	"src": ["src/sll.c", "src/sll.h"]
+	"src": ["src/ll.c", "src/ll.h"]
 }

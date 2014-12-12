@@ -1,14 +1,14 @@
-/* test_sll.c - test driver for sll
+/* test_ll.c - test driver for ll
  *
  * Copyright (C) 2014 Charles Lehner
- * This file is part of sll.
+ * This file is part of ll.
  *
- * sll is free software: you can redistribute it and/or modify it under
+ * ll is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
  *
- * sll is distributed in the hope that it will be useful,
+ * ll is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sll.h"
+#include "ll.h"
 #include "mock_malloc.h"
 
 #include <stddef.h>
@@ -38,13 +38,13 @@ void test_strings()
     free_calls = 0;
 
     /* appending strings to list */
-    strs = sll_push(strs);
+    strs = ll_push(strs);
     assert(strs);
     *strs = str1;
-    strs = sll_push(strs);
+    strs = ll_push(strs);
     assert(strs);
     *strs = str2;
-    strs = sll_push(strs);
+    strs = ll_push(strs);
     assert(strs);
     *strs = str3;
 
@@ -52,21 +52,21 @@ void test_strings()
 
     /* peeking at strings in list */
     strs_read = strs;
-    strs_read = sll_peek(strs_read);
+    strs_read = ll_peek(strs_read);
     assert(strs_read && *strs_read == str2);
-    strs_read = sll_peek(strs_read);
+    strs_read = ll_peek(strs_read);
     assert(strs_read && *strs_read == str1);
-    strs_read = sll_peek(strs_read);
+    strs_read = ll_peek(strs_read);
     assert(strs_read == NULL);
 
     assert(free_calls == 0);
 
     /* popping strings off list */
-    strs = sll_pop(strs);
+    strs = ll_pop(strs);
     assert(strs && *strs == str2);
-    strs = sll_pop(strs);
+    strs = ll_pop(strs);
     assert(strs && *strs == str1);
-    strs = sll_pop(strs);
+    strs = ll_pop(strs);
     assert(strs == NULL);
 
     assert(free_calls == 3);
@@ -77,22 +77,22 @@ void test_ints()
     int *ints = NULL;
 
     /* appending ints to list */
-    ints = sll_push(ints);
+    ints = ll_push(ints);
     assert(ints);
     *ints = 100;
-    ints = sll_push(ints);
+    ints = ll_push(ints);
     assert(ints);
     *ints = 200;
-    ints = sll_push(ints);
+    ints = ll_push(ints);
     assert(ints);
     *ints = 300;
 
     /* popping ints off list */
-    ints = sll_pop(ints);
+    ints = ll_pop(ints);
     assert(ints && *ints == 200);
-    ints = sll_pop(ints);
+    ints = ll_pop(ints);
     assert(ints && *ints == 100);
-    ints = sll_pop(ints);
+    ints = ll_pop(ints);
     assert(!ints);
 }
 
@@ -104,27 +104,27 @@ void test_structs()
     } *foo = NULL;
 
     /* append items */
-    foo = sll_push(foo);
+    foo = ll_push(foo);
     assert(foo);
     foo->bar = 11;
     foo->str = str1;
 
-    foo = sll_push(foo);
+    foo = ll_push(foo);
     assert(foo);
     foo->bar = 7;
     foo->str = str2;
 
-    foo = sll_push(foo);
+    foo = ll_push(foo);
     assert(foo);
     foo->bar = 5;
     foo->str = str3;
 
     /* pop items */
-    foo = sll_pop(foo);
+    foo = ll_pop(foo);
     assert(foo && foo->bar == 7 && foo->str == str2);
-    foo = sll_pop(foo);
+    foo = ll_pop(foo);
     assert(foo && foo->bar == 11 && foo->str == str1);
-    foo = sll_pop(foo);
+    foo = ll_pop(foo);
     assert(!foo);
 }
 
@@ -134,13 +134,13 @@ void test_iteration()
 
     /* put numbers in list */
     for (i = 0; i < 20; i += 2) {
-        nums = sll_push(nums);
+        nums = ll_push(nums);
         assert(nums);
         *nums = i;
     }
 
     /* read back the numbers */
-    for (num = nums; num; num = sll_pop(num)) {
+    for (num = nums; num; num = ll_pop(num)) {
         i -= 2;
         assert(*num == i);
     }
@@ -153,19 +153,19 @@ void test_free()
 
     /* make a list */
     for (i = 0; i < 10; i++) {
-        *(nums = sll_push(nums)) = i;
+        *(nums = ll_push(nums)) = i;
     }
 
     /* free the list */
-    sll_free(nums);
+    ll_free(nums);
     assert(free_calls == 10);
 }
 
 void test_empty()
 {
     /* try peek and pop on empty list */
-    assert(sll_peek(NULL) == NULL);
-    assert(sll_pop(NULL) == NULL);
+    assert(ll_peek(NULL) == NULL);
+    assert(ll_pop(NULL) == NULL);
 }
 
 int main()
