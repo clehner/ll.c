@@ -199,6 +199,15 @@ void test_reduce()
     assert(sum.y == (1 << k) - (1 << j));
 }
 
+void test_reduce_empty()
+{
+    struct point sum = {0, 0};
+
+    /* sum empty list of points */
+    ll_reduce(NULL, point_sum, &sum);
+    assert(sum.x == 0 && sum.y == 0);
+}
+
 int main()
 {
     test_strings();
@@ -208,6 +217,7 @@ int main()
     test_free();
     test_empty();
     test_reduce();
+    test_reduce_empty();
 
     return 0;
 }
