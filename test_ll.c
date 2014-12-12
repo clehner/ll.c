@@ -21,6 +21,7 @@
 #include "mock_malloc.h"
 
 #include <assert.h>
+#include <stdio.h>
 
 /* some strings to use */
 static char
@@ -172,28 +173,30 @@ void test_empty()
     assert(ll_pop(NULL) == NULL);
 }
 
-void point_sum(void *a, void *b)
+int point_sum(void *a, void *b)
 {
     struct point *point_a = a, *point_b = b;
     point_a->x += point_b->x;
     point_a->y += point_b->y;
+    return 0;
 }
 
 void test_reduce()
 {
-    struct point *point = NULL;
-    int i;
+    struct point *point = NULL, sum = {0, 0};
+    int i, j = 3, k = 12;
 
     /* make some points */
-    for (i = 0; i < 10; i++) {
+    for (i = j; i < k; i++) {
         point = ll_push(point);
         point->x = i;
-        point->y = i * i;
+        point->y = 1 << i;
     }
 
     /* sum the points */
-    point = ll_reduce(point, point_sum);
-    assert(point->x == 45 && point->y == 285);
+    ll_reduce(point, point_sum, &sum);
+    assert(sum.x == (k - j) * (k + j - 1) / 2);
+    assert(sum.y == (1 << k) - (1 << j));
 }
 
 int main()
