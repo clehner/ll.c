@@ -11,7 +11,7 @@ CFLAGS = -Wall -Wextra -Werror -std=gnu99
 all: ll.o test
 
 test: test_ll
-	./$<
+	@./$< && echo Tests passed
 
 test_ll: ll_debug.o mock_malloc.c
 

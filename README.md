@@ -131,8 +131,6 @@ equivalent to popping each list item and discarding them.
 
     $ make test
 
-On success, the test is silent ([Rule of Silence](http://www.linfo.org/rule_of_silence.html)).
-
 See the test file `test_ll.c` to find more examples of using ll.
 
 ## License

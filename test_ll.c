@@ -21,7 +21,6 @@
 #include "mock_malloc.h"
 
 #include <assert.h>
-#include <stdio.h>
 
 /* some strings to use */
 static char
