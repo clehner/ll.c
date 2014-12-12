@@ -172,11 +172,9 @@ void test_empty()
     assert(ll_pop(NULL) == NULL);
 }
 
-int point_sum(void *a, void *b)
-{
-    struct point *point_a = a, *point_b = b;
-    point_a->x += point_b->x;
-    point_a->y += point_b->y;
+int point_sum LL_REDUCE_FN(struct point, *a, *b)
+    a->x += b->x;
+    a->y += b->y;
     return 0;
 }
 
@@ -207,9 +205,7 @@ void test_reduce_empty()
     assert(sum.x == 0 && sum.y == 0);
 }
 
-int sum_lt5(void *_a, void *_b)
-{
-    int *a = _a, *b = _b;
+int sum_lt5 LL_REDUCE_FN(int, *a, *b)
     int sum = *a + *b;
 
     /* stop if the sum gets too big */

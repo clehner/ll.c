@@ -30,6 +30,10 @@
 #define ll_foreach(ll, item) \
     for (typeof (ll) item = ll; item; item = _ll_peek(item))
 
+#define LL_REDUCE_FN(type, name1, name2) \
+    (void *_a, void *_b) { \
+        type name1 = _a, name2 = _b;
+
 void *_ll_push(void *ll, size_t size);
 void *_ll_pop(void *ll);
 void *_ll_peek(void *ll);
