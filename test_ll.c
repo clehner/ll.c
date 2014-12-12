@@ -243,17 +243,16 @@ void test_reduce_stop()
 
 void test_foreach()
 {
-    struct foo {
+    struct {
         int value;
-    };
-    struct foo *values = NULL;
+    } *items = NULL;
 
-    (values = ll_push(values))->value = 1;
-    (values = ll_push(values))->value = 2;
+    (items = ll_push(items))->value = 1;
+    (items = ll_push(items))->value = 2;
 
-    ll_foreach(values, value) {
-        assert(value);
-        assert(value->value == 1 || value->value == 2);
+    ll_foreach(items, item) {
+        assert(item);
+        assert(item->value == 1 || item->value == 2);
     }
 }
 
