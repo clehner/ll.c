@@ -29,5 +29,6 @@ void *_ll_push(void *ll, size_t size);
 void *ll_pop(void *ll);
 void *ll_peek(void *ll);
 void ll_free(void *ll);
+void *ll_reduce(void *ll, void (fn)(void *target, void *other));
 
 #endif /* __LL_H */

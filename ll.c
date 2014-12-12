@@ -64,3 +64,23 @@ ll_free(void *_ll)
         free(ll);
     }
 }
+
+void *
+ll_reduce(void *_ll, void (fn)(void *target, void *other))
+{
+    struct ll *ll, *next, *value = _ll;
+    if (!value)
+        return NULL;
+    value--;
+    next = value->next;
+    if (!next)
+        return &value->value;
+    for (ll = next; ll; ll = next) {
+        ll--;
+        next = ll->next;
+        fn(value->value, &ll->value);
+        if (next)
+            free(ll);
+    }
+    return &value->value;
+}

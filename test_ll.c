@@ -20,7 +20,6 @@
 #include "ll.h"
 #include "mock_malloc.h"
 
-#include <stddef.h>
 #include <assert.h>
 
 /* some strings to use */
@@ -28,6 +27,11 @@ static char
     *str1 = "apple",
     *str2 = "pie",
     *str3 = "sauce";
+
+/* point struct for reduce function testing */
+struct point {
+    int x, y;
+};
 
 void test_strings()
 {
@@ -168,6 +172,30 @@ void test_empty()
     assert(ll_pop(NULL) == NULL);
 }
 
+void point_sum(void *a, void *b)
+{
+    struct point *point_a = a, *point_b = b;
+    point_a->x += point_b->x;
+    point_a->y += point_b->y;
+}
+
+void test_reduce()
+{
+    struct point *point = NULL;
+    int i;
+
+    /* make some points */
+    for (i = 0; i < 10; i++) {
+        point = ll_push(point);
+        point->x = i;
+        point->y = i * i;
+    }
+
+    /* sum the points */
+    point = ll_reduce(point, point_sum);
+    assert(point->x == 45 && point->y == 285);
+}
+
 int main()
 {
     test_strings();
@@ -176,6 +204,7 @@ int main()
     test_iteration();
     test_free();
     test_empty();
+    test_reduce();
 
     return 0;
 }
