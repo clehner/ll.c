@@ -5,8 +5,8 @@ a simple API, ease-of-use, and type-safety.
 
 The API and implementation is inspired by that of
 [sds](https://github.com/antirez/sds). In particular, operations return
-the new value, in the style of functional programming; and the list pointers are
-are "hidden" by being stored before the actual data for each list item.
+the new value, in the style of functional programming; and the list pointers
+are are "hidden" by being stored before the actual data for each list item.
 
 ## Example
 
@@ -60,8 +60,8 @@ item *ll_push(item *ll); /* where item is the type of your list */
 Call `ll_push` with the current list and you will get a new list with a
 reference to the previous list.
 
-`ll_push` uses a macro to figure out the size of the type you are passing to it,
-so it will allocate a new item of the same size.
+`ll_push` uses a macro to figure out the size of the type you are passing to
+it, so it will allocate a new item of the same size.
 
 ```c
 int *numbers = NULL;
@@ -85,7 +85,7 @@ item *ll_pop(item *ll);
 item *ll_peek(item *ll);
 ```
 
-`ll_pop` and `ll_peek` will both return the list starting from the next item
+`ll_pop` and `ll_peek` will return the list starting from the next item
 (like cdr in lisp). `ll_pop` will also free the current list pointer before
 returning.
 
@@ -101,7 +101,6 @@ anon = ll_pop(anon);
 /* anon->foo == "one" */
 anon = ll_pop(anon);
 /* anon == NULL */
-
 ```
 
 ## Iterating through a list
