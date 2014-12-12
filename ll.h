@@ -22,17 +22,18 @@
 
 #include <stddef.h>
 
-#define ll_push(ll) \
-    _ll_push(ll, sizeof(*ll))
+#define ll_push(ll) (typeof (ll)) _ll_push(ll, sizeof(*ll))
+#define ll_pop(ll) (typeof (ll)) _ll_pop(ll)
+#define ll_peek(ll) (typeof (ll)) _ll_peek(ll)
+#define ll_reduce(ll, fn, val) (typeof (ll)) _ll_reduce(ll, fn, val)
 
 #define ll_foreach(ll, item) \
-    typeof (ll) item = ll; \
-    while ((item = ll_peek(item)))
+    for (typeof (ll) item = ll; item; item = _ll_peek(item))
 
 void *_ll_push(void *ll, size_t size);
-void *ll_pop(void *ll);
-void *ll_peek(void *ll);
+void *_ll_pop(void *ll);
+void *_ll_peek(void *ll);
 void ll_free(void *ll);
-void *ll_reduce(void *ll, int (void *, void *), void *value);
+void *_ll_reduce(void *ll, int (void *, void *), void *value);
 
 #endif /* __LL_H */

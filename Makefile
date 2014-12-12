@@ -6,7 +6,7 @@
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -std=gnu99
 
 all: ll.o test
 

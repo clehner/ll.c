@@ -36,13 +36,13 @@ _ll_push(void *next, size_t size)
 }
 
 void *
-ll_peek(void *ll)
+_ll_peek(void *ll)
 {
     return ll ? ((struct ll *)ll)[-1].next : NULL;
 }
 
 void *
-ll_pop(void *_ll)
+_ll_pop(void *_ll)
 {
     struct ll *ll, *next;
     if (!_ll)
@@ -66,7 +66,7 @@ ll_free(void *_ll)
 }
 
 void *
-ll_reduce(void *_ll, int (fn)(void *, void *), void *value)
+_ll_reduce(void *_ll, int (fn)(void *, void *), void *value)
 {
     struct ll *ll, *next;
     if (!_ll)

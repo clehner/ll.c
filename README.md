@@ -1,7 +1,7 @@
 # ll.c
 
 ll.c is an implementation of a singly-linked list (stack) in C, featuring
-a simple API, ease-of-use, and some type-safety.
+a simple API, ease-of-use, and type-safety.
 
 The API and implementation is inspired by that of
 [sds](https://github.com/antirez/sds). In particular, operations return
@@ -54,7 +54,7 @@ struct {
 ## Adding to a list
 
 ```c
-void *ll_push(void *ll);
+item *ll_push(item *ll); /* where item is the type of your list */
 ```
 
 Call `ll_push` with the current list and you will get a new list with a
@@ -64,6 +64,7 @@ reference to the previous list.
 so it will allocate a new item of the same size.
 
 ```c
+int *numbers = NULL;
 numbers = ll_push(numbers);
 *numbers = 100;
 numbers = ll_push(numbers);
@@ -80,8 +81,8 @@ anon->foo = "three";
 ## Getting items from a list
 
 ```c
-void *ll_pop(void *ll);
-void *ll_peek(void *ll);
+item *ll_pop(item *ll);
+item *ll_peek(item *ll);
 ```
 
 `ll_pop` and `ll_peek` will both return the list starting from the next item
