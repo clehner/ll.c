@@ -106,11 +106,30 @@ anon = ll_pop(anon);
 
 ## Iterating through a list
 
-Use a for loop to iterate through a list. Use `ll_pop` to free the list
-pointers as you go, or `ll_peek` to keep them intact.
+```c
+ll_foreach(list, item)
+```
 
-Since this is a singly-linked list (like a stack), items will be iterated
+You can use the convenience macro `ll_foreach` to iterate through item of a
+list.
+
+Since this is a singly-linked list, items will be iterated
 through in the reverse order from how they were added.
+
+```c
+int *nums = NULL;
+int sum = 0;
+*(nums = ll_push(nums)) = 5;
+*(nums = ll_push(nums)) = 10;
+
+ll_foreach(nums, num) {
+	sum += *num;
+}
+/* sum == 15 */
+```
+
+You could also iterate using a plain for loop. Use `ll_pop` to free the list
+pointers as you go, or `ll_peek` to keep the list intact.
 
 ```c
 int *num;
