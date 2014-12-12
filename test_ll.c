@@ -208,6 +208,39 @@ void test_reduce_empty()
     assert(sum.x == 0 && sum.y == 0);
 }
 
+int sum_lt5(void *_a, void *_b)
+{
+    int *a = _a, *b = _b;
+    int sum = *a + *b;
+
+    /* stop if the sum gets too big */
+    if (sum < 5) {
+        *a = sum;
+        return 0;
+    }
+    return 1;
+}
+
+void test_reduce_stop()
+{
+    int *num1, *num2, *num3, *num4, *nums_end, *nums = NULL;
+    int sum = 0;
+    free_calls = 0;
+
+    *(nums = num1 = ll_push(nums)) = 2;
+    *(nums = num2 = ll_push(nums)) = 2;
+    *(nums = num3 = ll_push(nums)) = 2;
+    *(nums = num4 = ll_push(nums)) = 2;
+
+    nums_end = ll_reduce(nums, sum_lt5, &sum);
+
+    /* the first two numbers get summed, and then the function stops the
+     * reduce and the rest of the list is returned */
+    assert(free_calls == 2);
+    assert(sum == 4);
+    assert(nums_end == num2);
+}
+
 int main()
 {
     test_strings();
@@ -218,6 +251,7 @@ int main()
     test_empty();
     test_reduce();
     test_reduce_empty();
+    test_reduce_stop();
 
     return 0;
 }
