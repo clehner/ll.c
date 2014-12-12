@@ -36,15 +36,9 @@ _sll_push(void *next, size_t size)
 }
 
 void *
-sll_peek(void *_sll)
+sll_peek(void *sll)
 {
-    struct sll *sll;
-    if (!_sll)
-        return NULL;
-    sll = _sll;
-    sll--;
-    return sll->next;
-    //return ((struct sll *)sll)[-1].next;
+    return sll ? ((struct sll *)sll)[-1].next : NULL;
 }
 
 void *
