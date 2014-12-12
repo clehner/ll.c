@@ -25,6 +25,10 @@
 #define ll_push(ll) \
     _ll_push(ll, sizeof(*ll))
 
+#define ll_foreach(ll, item) \
+    typeof (ll) item = ll; \
+    while ((item = ll_peek(item)))
+
 void *_ll_push(void *ll, size_t size);
 void *ll_pop(void *ll);
 void *ll_peek(void *ll);

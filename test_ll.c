@@ -241,6 +241,22 @@ void test_reduce_stop()
     assert(nums_end == num2);
 }
 
+void test_foreach()
+{
+    struct foo {
+        int value;
+    };
+    struct foo *values = NULL;
+
+    (values = ll_push(values))->value = 1;
+    (values = ll_push(values))->value = 2;
+
+    ll_foreach(values, value) {
+        assert(value);
+        assert(value->value == 1 || value->value == 2);
+    }
+}
+
 int main()
 {
     test_strings();
@@ -252,6 +268,7 @@ int main()
     test_reduce();
     test_reduce_empty();
     test_reduce_stop();
+    test_foreach();
 
     return 0;
 }
