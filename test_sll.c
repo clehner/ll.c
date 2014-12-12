@@ -161,6 +161,13 @@ void test_free()
     assert(free_calls == 10);
 }
 
+void test_empty()
+{
+    /* try peek and pop on empty list */
+    assert(sll_peek(NULL) == NULL);
+    assert(sll_pop(NULL) == NULL);
+}
+
 int main()
 {
     test_strings();
@@ -168,6 +175,7 @@ int main()
     test_structs();
     test_iteration();
     test_free();
+    test_empty();
+
     return 0;
 }
-
