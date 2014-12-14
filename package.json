@@ -1,9 +1,10 @@
 {
 	"name": "ll",
 	"version": "1.0.0",
-	"repo": "clehner/ll",
+	"repo": "clehner/ll.c",
 	"description": "minimal linked list",
 	"keywords": ["list", "structure"],
+	"author": "Charles Lehner",
 	"license": "LGPL-3.0+",
-	"src": ["src/ll.c", "src/ll.h"]
+	"src": ["ll.c", "ll.h"]
 }
