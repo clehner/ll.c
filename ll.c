@@ -26,7 +26,7 @@ struct ll {
 };
 
 void *
-_ll_push(void *next, size_t size)
+_ll_new(void *next, size_t size)
 {
     struct ll *ll = malloc(sizeof(struct ll) + size);
     if (!ll)
@@ -36,7 +36,7 @@ _ll_push(void *next, size_t size)
 }
 
 void *
-_ll_peek(void *ll)
+_ll_next(void *ll)
 {
     return ll ? ((struct ll *)ll)[-1].next : NULL;
 }

@@ -42,25 +42,25 @@ void test_strings()
     free_calls = 0;
 
     /* appending strings to list */
-    strs = ll_push(strs);
+    strs = ll_new(strs);
     assert(strs);
     *strs = str1;
-    strs = ll_push(strs);
+    strs = ll_new(strs);
     assert(strs);
     *strs = str2;
-    strs = ll_push(strs);
+    strs = ll_new(strs);
     assert(strs);
     *strs = str3;
 
     assert(malloc_calls == 3);
 
-    /* peeking at strings in list */
+    /* nexting at strings in list */
     strs_read = strs;
-    strs_read = ll_peek(strs_read);
+    strs_read = ll_next(strs_read);
     assert(strs_read && *strs_read == str2);
-    strs_read = ll_peek(strs_read);
+    strs_read = ll_next(strs_read);
     assert(strs_read && *strs_read == str1);
-    strs_read = ll_peek(strs_read);
+    strs_read = ll_next(strs_read);
     assert(strs_read == NULL);
 
     assert(free_calls == 0);
@@ -81,13 +81,13 @@ void test_ints()
     int *ints = NULL;
 
     /* appending ints to list */
-    ints = ll_push(ints);
+    ints = ll_new(ints);
     assert(ints);
     *ints = 100;
-    ints = ll_push(ints);
+    ints = ll_new(ints);
     assert(ints);
     *ints = 200;
-    ints = ll_push(ints);
+    ints = ll_new(ints);
     assert(ints);
     *ints = 300;
 
@@ -108,17 +108,17 @@ void test_structs()
     } *foo = NULL;
 
     /* append items */
-    foo = ll_push(foo);
+    foo = ll_new(foo);
     assert(foo);
     foo->bar = 11;
     foo->str = str1;
 
-    foo = ll_push(foo);
+    foo = ll_new(foo);
     assert(foo);
     foo->bar = 7;
     foo->str = str2;
 
-    foo = ll_push(foo);
+    foo = ll_new(foo);
     assert(foo);
     foo->bar = 5;
     foo->str = str3;
@@ -138,7 +138,7 @@ void test_iteration()
 
     /* put numbers in list */
     for (i = 0; i < 20; i += 2) {
-        nums = ll_push(nums);
+        nums = ll_new(nums);
         assert(nums);
         *nums = i;
     }
@@ -157,7 +157,7 @@ void test_free()
 
     /* make a list */
     for (i = 0; i < 10; i++) {
-        *(nums = ll_push(nums)) = i;
+        *(nums = ll_new(nums)) = i;
     }
 
     /* free the list */
@@ -167,8 +167,8 @@ void test_free()
 
 void test_empty()
 {
-    /* try peek and pop on empty list */
-    assert(ll_peek(NULL) == NULL);
+    /* try next and pop on empty list */
+    assert(ll_next(NULL) == NULL);
     assert(ll_pop(NULL) == NULL);
 }
 
@@ -185,7 +185,7 @@ void test_reduce()
 
     /* make some points */
     for (i = j; i < k; i++) {
-        point = ll_push(point);
+        point = ll_new(point);
         point->x = i;
         point->y = 1 << i;
     }
@@ -222,10 +222,10 @@ void test_reduce_stop()
     int sum = 0;
     free_calls = 0;
 
-    *(nums = num1 = ll_push(nums)) = 2;
-    *(nums = num2 = ll_push(nums)) = 2;
-    *(nums = num3 = ll_push(nums)) = 2;
-    *(nums = num4 = ll_push(nums)) = 2;
+    *(nums = num1 = ll_new(nums)) = 2;
+    *(nums = num2 = ll_new(nums)) = 2;
+    *(nums = num3 = ll_new(nums)) = 2;
+    *(nums = num4 = ll_new(nums)) = 2;
 
     nums_end = ll_reduce(nums, sum_lt5, &sum);
 
@@ -242,8 +242,8 @@ void test_foreach()
         int value;
     } *items = NULL;
 
-    (items = ll_push(items))->value = 1;
-    (items = ll_push(items))->value = 2;
+    (items = ll_new(items))->value = 1;
+    (items = ll_new(items))->value = 2;
 
     ll_foreach(items, item) {
         assert(item);

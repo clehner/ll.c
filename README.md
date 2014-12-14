@@ -22,10 +22,10 @@ int main()
 {
     struct thing *thing = NULL; /* list */
 
-    thing = ll_push(thing);
+    thing = ll_new(thing);
     thing->word = "world";
 
-    thing = ll_push(thing);
+    thing = ll_new(thing);
     thing->word = "hello";
 
     char *hello = thing->word;
@@ -54,27 +54,27 @@ struct {
 ## Adding to a list
 
 ```c
-item *ll_push(item *ll); /* where item is the type of your list */
+item *ll_new(item *ll); /* where item is the type of your list */
 ```
 
-Call `ll_push` with the current list and you will get a new list with a
+Call `ll_new` with the current list and you will get a new list with a
 reference to the previous list.
 
-`ll_push` uses a macro to figure out the size of the type you are passing to
+`ll_new` uses a macro to figure out the size of the type you are passing to
 it, so it will allocate a new item of the same size.
 
 ```c
 int *numbers = NULL;
-numbers = ll_push(numbers);
+numbers = ll_new(numbers);
 *numbers = 100;
-numbers = ll_push(numbers);
+numbers = ll_new(numbers);
 *numbers = 200;
 
-anon = ll_push(anon);
+anon = ll_new(anon);
 anon->foo = "one";
-anon = ll_push(anon);
+anon = ll_new(anon);
 anon->foo = "two";
-anon = ll_push(anon);
+anon = ll_new(anon);
 anon->foo = "three";
 ```
 
@@ -82,17 +82,17 @@ anon->foo = "three";
 
 ```c
 item *ll_pop(item *ll);
-item *ll_peek(item *ll);
+item *ll_next(item *ll);
 ```
 
-`ll_pop` and `ll_peek` will return the list starting from the next item
+`ll_pop` and `ll_next` will return the list starting from the next item
 (like cdr in lisp). `ll_pop` will also free the current list pointer before
 returning.
 
 ```c
-int *num = ll_peek(numbers);
+int *num = ll_next(numbers);
 /* *num == 100 */
-num = ll_peek(num);
+num = ll_next(num);
 /* num == NULL */
 
 anon = ll_pop(anon);
@@ -118,8 +118,8 @@ through in the reverse order from how they were added.
 ```c
 int *nums = NULL;
 int sum = 0;
-*(nums = ll_push(nums)) = 5;
-*(nums = ll_push(nums)) = 10;
+*(nums = ll_new(nums)) = 5;
+*(nums = ll_new(nums)) = 10;
 
 ll_foreach(nums, num) {
 	sum += *num;
@@ -128,11 +128,11 @@ ll_foreach(nums, num) {
 ```
 
 You could also iterate using a plain for loop. Use `ll_pop` to free the list
-pointers as you go, or `ll_peek` to keep the list intact.
+pointers as you go, or `ll_next` to keep the list intact.
 
 ```c
 int *num;
-for (num = numbers; num; num = ll_peek(num)) {
+for (num = numbers; num; num = ll_next(num)) {
 	printf("%d\n", *num); /* prints 200, then 100 */
 }
 ```
