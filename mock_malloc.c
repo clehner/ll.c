@@ -19,7 +19,7 @@
 
 #include "mock_malloc.h"
 
-#include <malloc.h>
+#include <stdlib.h>
 
 void my_free(void *ptr)
 {

@@ -38,7 +38,7 @@ _ll_new(void *next, size_t size)
 void *
 _ll_next(void *ll)
 {
-    return ll ? ((struct ll *)ll)[-1].next : NULL;
+    return ll ? container_of(ll, struct ll, value)->next : ll;
 }
 
 void *
@@ -47,8 +47,7 @@ _ll_pop(void *_ll)
     struct ll *ll, *next;
     if (!_ll)
         return NULL;
-    ll = _ll;
-    ll--;
+    ll = container_of(_ll, struct ll, value);
     next = ll->next;
     free(ll);
     return next;
@@ -58,9 +57,8 @@ void
 ll_free(void *_ll)
 {
     struct ll *ll, *next;
-    for (ll = _ll; ll; ll = next) {
-        ll--;
-        next = ll->next;
+    for (ll = _ll ? container_of(_ll, struct ll, value) : _ll; ll; ll = next) {
+        next = ll->next ? container_of((void *)ll->next, struct ll, value) : NULL;
         free(ll);
     }
 }
@@ -71,9 +69,8 @@ _ll_reduce(void *_ll, int (fn)(void *, void *), void *value)
     struct ll *ll, *next;
     if (!_ll)
         return _ll;
-    for (ll = _ll; ll; ll = next) {
-        ll--;
-        next = ll->next;
+    for (ll = _ll ? container_of(_ll, struct ll, value) : _ll; ll; ll = next) {
+        next = ll->next ? container_of((void *)ll->next, struct ll, value) : NULL;
         if (fn(value, &ll->value))
             return &ll->value;
         free(ll);
