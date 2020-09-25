@@ -6,7 +6,7 @@ a simple API, ease-of-use, and type-safety.
 The API and implementation is inspired by that of
 [sds](https://github.com/antirez/sds). In particular, operations return
 the new value, in the style of functional programming; and the list pointers
-are are "hidden" by being stored before the actual data for each list item.
+are "hidden" by being stored before the actual data for each list item.
 
 ## Example
 
