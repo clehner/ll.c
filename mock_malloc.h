@@ -22,8 +22,8 @@
 
 #include <stddef.h>
 
-unsigned int free_calls;
-unsigned int malloc_calls;
+extern unsigned int free_calls;
+extern unsigned int malloc_calls;
 
 void *my_malloc(size_t);
 void my_free(void *);
